@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+</head>
+<body>
+
+    <section>
+        <button class="btns" id="1">1</button>
+        <button class="btns" id="2">2</button>
+        <button class="btns" id="3">3</button>
+        <button class="btns" id="4">4</button>
+    </section>
+    <form name='newsample' onsubmit='maFonction();'><input type=text id=answer></input><input type=submit> </input></form>
+
+    <script>
+
+    var btns = document.querySelectorAll(".btns"),
+    answer = document.querySelector("#answer"),
+    section = document.querySelector("section"),
+    i = btns.length;
+
+    function onButtonsClick(e) {
+      if (e.target.tagName === "BUTTON") {
+        alert(e.target.id);
+      }
+    }
+    function maFonction(e) {
+      var btn = document.createElement("button");
+      e.preventDefault();
+      btn.id = i+1;
+      btn.classList.add("btns");
+      section.appendChild(btn);
+      btn.appendChild(document.createTextNode(answer.value === "" ? "..." : answer.value));
+      btns[i] = btn;
+      i++;
+    }
+    section.addEventListener("click", onButtonsClick, false);
+    document.querySelector("form").addEventListener("submit", maFonction, false);
+
+        </script>
+</body>
+</html>
