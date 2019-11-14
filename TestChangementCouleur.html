@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test changement de couleur</title>
+</head>
+<body>
+
+<section>
+    <button class="btns" id="1">1</button>
+    <button class="btns" id="2">2</button>
+    <button class="btns" id="3">3</button>
+    <button class="btns" id="4">4</button>
+</section>
+<form name='newsample' onsubmit='maFonction();'><input type=text id=bouton_change placeholder="bouton à changer"></input><input type=text id=couleur placeholder="couleur choisie"></input><input type=submit> </input></form>
+
+<script>
+
+    var btns = document.querySelectorAll(".btns"),
+    answer = document.querySelector("#answer"),
+    section = document.querySelector("section"),
+    i = btns.length;
+
+    function onButtonsClick(e) {
+      if (e.target.tagName === "BUTTON") {
+        alert(e.target.id);
+      }
+    }
+    function maFonction(e) {
+      var bc = document.getElementById("bouton_change").value;
+      alert(bc);
+      var tmp = document.getElementById(bc);
+      var color = document.getElementById("couleur").value;
+      alert(color);
+      tmp.style.background = color;
+      e.preventDefault();
+    }
+    section.addEventListener("click", onButtonsClick, false);
+    document.querySelector("form").addEventListener("submit", maFonction, false);
+
+        </script>
+</body>
+</html>
