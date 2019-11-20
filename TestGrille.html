@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="TestGrille.css" />
+    <title>Test ajout bouton dans une grille</title>
+</head>
+<body>
+    
+    <div class="wrapper">
+        <div class="one" id="div1">Un <button class="btns" id="1">1</button></div>
+        <div class="two "id="div2">Deux</div>
+        <div class="three" id="div3">Trois</div>
+        <div class="four" id="div4">Quatre</div>
+        <div class="five" id="div5">Cinq</div>
+        <div class="six" id="div6">Six</div>
+
+        <form name='newsample' onsubmit='ajoutBoutonDansGrille();'></input><input type=submit> </input></form>
+
+
+    </div>
+    <script>
+        i = btns.length;
+
+        function onButtonsClick(e) {
+          if (e.target.tagName === "BUTTON") {
+            alert(e.target.id);
+          }
+        }
+        function ajoutBoutonDansGrille(e) {
+          var btn = document.createElement("button");
+          e.preventDefault();
+          btn.id = i+1;
+          btn.classList.add("btns");
+          document.getElementById("div2").appendChild(bnt);
+          btn.appendChild(document.createTextNode(btn.id));
+          btns[i] = btn;
+          i++;
+        }
+    </script>
+</body>
+</html>
