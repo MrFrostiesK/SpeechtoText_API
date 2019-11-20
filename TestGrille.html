@@ -6,7 +6,7 @@
     <title>Test ajout bouton dans une grille</title>
 </head>
 <body>
-    
+
     <div class="wrapper">
         <div class="one" id="div1">Un <button class="btns" id="1">1</button></div>
         <div class="two "id="div2">Deux</div>
@@ -20,23 +20,26 @@
 
     </div>
     <script>
-        i = btns.length;
+        var btns = document.querySelectorAll(".btns");
+        i = 0;
 
         function onButtonsClick(e) {
           if (e.target.tagName === "BUTTON") {
             alert(e.target.id);
           }
         }
-        function ajoutBoutonDansGrille(e) {
+        function ajoutBoutonDansGrille() {
           var btn = document.createElement("button");
-          e.preventDefault();
+         // e.preventDefault();
           btn.id = i+1;
           btn.classList.add("btns");
-          document.getElementById("div2").appendChild(bnt);
+          document.getElementById('div2').appendChild(btn);
           btn.appendChild(document.createTextNode(btn.id));
           btns[i] = btn;
           i++;
         }
+
+        document.querySelector("form").addEventListener("click", ajoutBoutonDansGrille, false);
     </script>
 </body>
 </html>
