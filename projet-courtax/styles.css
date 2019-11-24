@@ -90,3 +90,48 @@ button:focus {
 @media (max-width: 1200px) {
     #bsaHolder{ display:none;}
 }
+
+// grid part 
+
+* {box-sizing: border-box;}
+
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);    
+    max-width: 940px;
+    margin: 0 auto;
+}
+
+.wrapper > div {
+    border: 2px solid rgb(233,171,88);
+    border-radius: 5px;
+    background-color: rgba(233,171,88,.5);
+    padding: 1em;
+    color: #d9480f;
+}
+.one {
+    grid-column: 1;
+    grid-row: 1;
+}
+.two { 
+    grid-column: 2;
+    grid-row: 1;
+}
+.three {
+    grid-column: 3;
+    grid-row: 1;
+}
+.four {
+    grid-column: 1;
+    grid-row: 2;
+}
+.five {
+    grid-column: 2;
+    grid-row: 2;
+}
+.six {
+    grid-column: 3;
+    grid-row: 2;
+}

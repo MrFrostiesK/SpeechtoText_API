@@ -1,3 +1,19 @@
+
+var ListCouleur = {}
+ListCouleur["rouge"] = "#FF0000";
+ListCouleur["rose"] = "#FFC0CB";
+ListCouleur["jaune"] = "#FFFF00";
+ListCouleur["violet"] = "#800080";
+ListCouleur["indigo"] = "#4B0082";
+ListCouleur["vert"] = "#008000";
+ListCouleur["bleu"] = "#0000FF";
+ListCouleur["marron"] = "#A52A2A";
+ListCouleur["blanc"] = "#FFFFFF";
+ListCouleur["gris"] = "#808080";
+ListCouleur["noir"] = "#000000";
+var BoutonColor = "";
+var cords;
+
 try {
   var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   var recognition = new SpeechRecognition();
@@ -136,15 +152,15 @@ notesList.on('click', function(e) {
 ------------------------------*/
 
 function readOutLoud(message) {
-	var speech = new SpeechSynthesisUtterance();
+  var speech = new SpeechSynthesisUtterance();
 
   // Set the text and voice attributes.
-	speech.text = message;
-	speech.volume = 1;
-	speech.rate = 1;
-	speech.pitch = 1;
+  speech.text = message;
+  speech.volume = 1;
+  speech.rate = 1;
+  speech.pitch = 1;
   
-	window.speechSynthesis.speak(speech);
+  window.speechSynthesis.speak(speech);
 }
 
 
@@ -176,19 +192,35 @@ function renderNotes(notes) {
 
 function saveNote(dateTime, content) {
   test = 0;
+  var supertest = "rouge";
+  console.log(ListCouleur[supertest]);
   var textBoutton = ""
   localStorage.setItem('note-' + dateTime, content);
   if(content.includes("bouton")){
     var list = content.split(' ');
     list.forEach(function(item, index, array) {
       console.log(item)
-      console.log(test)      
-      if(test==1){
-        console.log(item)
-        console.log("j'y suis")
-        textBoutton = textBoutton.concat(' ', item)
-        console.log(textBoutton)
+      console.log(test)
+      if(item=="dans" || item == "en"){
+        test = 2;
       }
+      if(test==2){
+        if(item == "1" || item == "2" || item == "3" || item == "4" || item == "5" || item == "6"){
+          cords = item;
+        }
+
+      }      
+      if(test==1){
+          var testCouleur = ListCouleur[item]
+          console.log("testCouleur"+ testCouleur);
+        if(testCouleur != undefined){
+          BoutonColor = testCouleur;
+        }else{
+          textBoutton = textBoutton.concat(' ', item);
+
+        }
+        }
+      
       if(item == "bouton"){
         test=1;
         console.log("j'ys suis")
@@ -196,7 +228,7 @@ function saveNote(dateTime, content) {
       }
 
     });
-
+    console.log(cords +"test coordonnes");
     maFonction(textBoutton)
   }
 }
@@ -235,14 +267,19 @@ function deleteNote(dateTime) {
     }
     function maFonction(textBoutton) {
       console.log(textBoutton)
+      console.log("bouton color "+ BoutonColor)
       var btn = document.createElement("button");
+      var casetable = document.getElementById("div"+cords);
+      btn.style.background = BoutonColor;
       //e.preventDefault();
       btn.id = i+1;
       btn.classList.add("btns");
       section.appendChild(btn);
+      casetable.appendChild(btn)
       btn.appendChild(document.createTextNode(textBoutton));
       btns[i] = btn;
       i++;
+      BoutonColor = "";
     }
     section.addEventListener("click", onButtonsClick, false);
     document.querySelector("form").addEventListener("submit", maFonction, false);
