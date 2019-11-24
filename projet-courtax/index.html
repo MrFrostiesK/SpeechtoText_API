@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta16/shoelace.css">
+        <link rel="stylesheet" href="styles.css">
+
+    </head>
+    <body>
+        <section>
+        <button class="btns" id="1">1</button>
+        <button class="btns" id="2">2</button>
+        <button class="btns" id="3">3</button>
+        <button class="btns" id="4">4</button>
+    </section>
+    <form name='newsample' onsubmit='maFonction();'><input type=text id=answer></input><input type=submit> </input></form>
+        <div class="container">
+
+
+            <h3 class="no-browser-support">Votre navigateur ne supporte pas l'api speech to text</h3>
+
+            <div class="app"> 
+                <h3>Modifier l'interface</h3>
+                <div class="input-single">
+                    <textarea id="note-textarea" placeholder="Create a new note by typing or using voice recognition." rows="6"></textarea>
+                </div>         
+                <button id="start-record-btn" title="Start Recording">Debut ecoute </button>
+                <button id="pause-record-btn" title="Pause Recording">Pause </button>
+                <button id="save-note-btn" title="Save Note">enregistrer</button>   
+                <p id="recording-instructions">Appuyer sur <strong>debut ecoute </strong> pour commencer une nouvelle requete</p>
+                
+                <h3>requetes precedentes</h3>
+                <ul id="notes">
+                    <li>
+                        <p class="no-notes"> pas de notes </p>
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="script.js"></script>
+
+        <!-- Only used for the demos ads. Please ignore and remove. --> 
+
+    </body>
+</html>
+
+
