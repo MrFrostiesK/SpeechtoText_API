@@ -8,15 +8,17 @@
 <body>
 
     <div class="wrapper">
-        <div class="one" id="div1">Un <button class="btns" id="1">1</button></div>
+        <div class="one" id="div1">Un <button class="btns" id="bt1">1</button></div>
         <div class="two "id="div2">Deux</div>
         <div class="three" id="div3">Trois</div>
         <div class="four" id="div4">Quatre</div>
         <div class="five" id="div5">Cinq</div>
         <div class="six" id="div6">Six</div>
 
-        <form name='newsample' onsubmit='ajoutBoutonDansGrille();'></input><input type=submit> </input></form>
-
+        <form name='newsample' onsubmit='supprimerItem(1)'></input><input type=submit> </input></form>
+        <button class="btns" id="bt2" onclick="createTextArea(2)">test texte area</button>
+        <button class="btns" id="bt3" onclick="IMG(3)">test image</button>
+        <button class="btns" id="bt4" onclick="createPsw(4)">test password</button>
 
     </div>
     <script>
@@ -28,18 +30,38 @@
             alert(e.target.id);
           }
         }
-        function ajoutBoutonDansGrille() {
-          var btn = document.createElement("button");
-         // e.preventDefault();
-          btn.id = i+1;
-          btn.classList.add("btns");
-          document.getElementById('div2').appendChild(btn);
-          btn.appendChild(document.createTextNode(btn.id));
-          btns[i] = btn;
-          i++;
+
+        function createTextArea(id){
+            var div = document.getElementById("div"+id);
+            var input = document.createElement("textarea");
+            input.name = "post";
+            input.maxLength = "5000";
+            input.cols = "80";
+            input.rows = "40";
+            div.appendChild(input);
         }
 
-        document.querySelector("form").addEventListener("click", ajoutBoutonDansGrille, false);
+        function IMG(id) {
+            var div = document.getElementById("div"+id);
+            var img = mew Image();
+            img.src =
+            'https://www.chroniquedisney.fr/imgPerso/mickeyville/1928-mickey-mouse-00.png';
+            div.appendChild(img);
+        }
+        function createPsw(id){
+            var div = document.getElementById("div"+id);
+            var input = document.createElement("INPUT");
+            input.setAttribute("type", "password");
+            div.appendChild(input);
+        }
+
+          function supprimerItem(id){
+            var casetable = document.getElementById("div"+id);
+            console.log(casetable.children)
+            casetable.removeChild(casetable.children[0])
+           }
+
+        document.querySelector("form").addEventListener("click", supprimerItem, false);
     </script>
 </body>
 </html>
