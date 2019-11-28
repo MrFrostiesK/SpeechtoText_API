@@ -11,8 +11,10 @@ ListCouleur["marron"] = "#A52A2A";
 ListCouleur["blanc"] = "#FFFFFF";
 ListCouleur["gris"] = "#808080";
 ListCouleur["noir"] = "#000000";
-var BoutonColor = "";
-var cords;
+var singletonRoiDesId = 100; 
+var tableauRoiDesTableau = [];
+var StringAvecLesNombreDeDebile = "1 2 3 4 5 6";
+
 
 try {
   var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -191,17 +193,178 @@ function renderNotes(notes) {
 
 
 function saveNote(dateTime, content) {
-  test = 0;
-  var supertest = "rouge";
-  console.log(ListCouleur[supertest]);
-  var textBoutton = ""
+  var textBoutton = "";
   localStorage.setItem('note-' + dateTime, content);
-  if(content.includes("bouton")){
     var list = content.split(' ');
     list.forEach(function(item, index, array) {
       console.log(item)
-      console.log(test)
-      if(item=="dans" || item == "en"){
+      if(item == "créer" || item == "afficher" || item == "affiche" || item == "ajouter" || item =="ajoute" 
+      || item =="génère" || item =="générer" ){
+        afficherItem(list,item);
+
+
+    }else if(item == "déplacer" || item == "déplace" || item == "bouge"){
+      deplacerItem(list,item);
+
+    }else if(item == "supprimer" || item == "supprime" || item == "retire" || item == "retirer"){
+      supprimerItem(list,item);
+    }
+
+    });
+
+  
+
+}
+function deplacerItem(chaine, mot){
+  var typeItem = "";
+  var origine=0;
+  var cible=0;
+  var listItem = [];
+  etape = 0;
+    chaine.forEach(function(item, index, array){
+      if(item=="bouton" || item == "champ texte"){
+        typeItem=item;
+
+      }
+      if(etape == 0){
+        if(StringAvecLesNombreDeDebile.includes(item)){
+          origine=item;
+          etape = 1;
+        }
+      }else if(etape == 1){
+        if(StringAvecLesNombreDeDebile.includes(item)){
+          cible=item;
+          etape = etape+1;
+        }
+      }
+
+
+    });
+      listItem = rechercherItem(origine,typeItem);
+      console.log(listItem+ "list item");
+      mvItem(listItem,origine,cible);
+}
+function rechercherItem(origine, typeItem){
+  console.log(tableauRoiDesTableau);
+  var listItem = [];
+  tableauRoiDesTableau.forEach(function(item,index, array){
+    console.log(item.div+"div");
+    console.log(typeItem+"typeitem");
+    if(typeItem == "bouton" || typeItem == "champ texte"){
+    if(item.div == origine && item == typeItem){
+      console.log("je suis dans le compliqué")
+    listItem.push(item.id);
+  }
+    }else{
+      if(item.div == origine){
+        console.log("je suis dans le simple"+item.id);
+        listItem.push(item.id);
+        console.log(listItem);
+      }
+    }
+  })
+  console.log(listItem+"juste avant");
+  return listItem;
+}
+function MAJItem(id, couleur, div){
+  tableauRoiDesTableau.forEach(function(item,index,array){
+    var tampon={}
+    if(item.id == id){
+      if(couleur == "same"){
+        tampon.id = id;
+        tampon.couleur = item.couleur;
+        tampon.div = div;
+        tampon.item = item.item;
+        tableauRoiDesTableau[index] = tampon;
+              }else{
+                tampon.id=id;
+                tampon.couleur = couleur;
+                tampon.div = div;
+                tampon.item = item.item;
+                tableauRoiDesTableau[item]=tampon;
+              }
+    }
+  });
+}
+function supprimerItem(chaine,mot){
+  var color="vide";
+  var div="vide"; 
+  var text="vide";
+  var etape=0;
+  var listId = [];
+  chaine.forEach(function(item, index, array){
+    if(item == "bouton"){
+      etape = 1;
+    }
+    if(ListCouleur[item]!=undefined){
+      color = item;
+    }
+    if(StringAvecLesNombreDeDebile.includes(item)){
+      div=item;
+    }
+    if(etape==1){
+      if(ListCouleur[item]==undefined && item!="en" && item!="dans" && !StringAvecLesNombreDeDebile.includes(item)){
+        text = item.concat(' ', item);
+      }
+    }
+
+  });
+  console.log(etape+"etape");
+  console.log(div+"div");
+  console.log(text+"text");
+  console.log(color+"color");
+  listId = rechercheItemToDelete(color,div,text);
+  deleteItem(listId);
+}
+
+function rechercheItemToDelete(color,div,text){
+  var testCol;
+  var testDiv;
+  var testText;
+  var listId = []
+  console.log("in");
+  tableauRoiDesTableau.forEach(function(item,index,array){
+    if(color=="vide"){
+      testCol=item.couleur;
+    }else{
+      testCol=color;
+    }
+    if(div=="vide"){
+      testDiv=item.div;
+    }else{
+      testDiv=div;
+    }
+    if(text=="vide"){
+      testText=item.txt;
+    }else{
+      testText=text;
+    }
+    console.log(item);
+    console.log(testCol+"col");
+    console.log(testDiv+"div");
+    console.log(testText+"text");
+    if(item.couleur== testCol && item.div == testDiv && item.txt == testText){
+      console.log("trouvé");
+      listId.push(item.id);
+
+    }
+  });
+  return listId;
+}
+
+
+
+function afficherItem(chaine, mot){ 
+  var textBoutton ="";
+  var tampon = 0;
+  var test = 0;
+  var done = 0;
+  var couleur = "";
+  var textBoutton ="";
+  var BoutonColor= "";
+  var cords = "";
+  chaine.forEach(function(item, index, array) {
+        if(item=="dans" || item == "en"){
         test = 2;
       }
       if(test==2){
@@ -215,6 +378,7 @@ function saveNote(dateTime, content) {
           console.log("testCouleur"+ testCouleur);
         if(testCouleur != undefined){
           BoutonColor = testCouleur;
+          couleur = item;
         }else{
           textBoutton = textBoutton.concat(' ', item);
 
@@ -224,12 +388,19 @@ function saveNote(dateTime, content) {
       if(item == "bouton"){
         test=1;
         console.log("j'ys suis")
+        done = 1
 
       }
 
-    });
+});
+  if(done == 1 ){
     console.log(cords +"test coordonnes");
-    maFonction(textBoutton)
+    maFonction(textBoutton,BoutonColor, couleur, cords)
+    testCouleur="";
+    textBoutton="";
+    BoutonColor="";
+    couleur="";
+    cords = "";
   }
 }
 
@@ -262,26 +433,50 @@ function deleteNote(dateTime) {
     i = btns.length;
     function onButtonsClick(e) {
       if (e.target.tagName === "BUTTON") {
-        alert(e.target.id);
       }
     }
-    function maFonction(textBoutton) {
-      console.log(textBoutton)
-      console.log("bouton color "+ BoutonColor)
+    function maFonction(textBoutton, BoutonColor, Couleur, cords) {
+      var objetHtml = {};
       var btn = document.createElement("button");
       var casetable = document.getElementById("div"+cords);
+      singletonRoiDesId = singletonRoiDesId++;
+      objetHtml.id= singletonRoiDesId;
+      objetHtml.couleur = Couleur;
+      objetHtml.div = cords;
+      objetHtml.item = "bouton";
+      objetHtml.txt= textBoutton;
+      tableauRoiDesTableau.push(objetHtml);
+      btn.id = singletonRoiDesId;
       btn.style.background = BoutonColor;
-      //e.preventDefault();
-      btn.id = i+1;
       btn.classList.add("btns");
-      section.appendChild(btn);
       casetable.appendChild(btn)
       btn.appendChild(document.createTextNode(textBoutton));
       btns[i] = btn;
       i++;
-      BoutonColor = "";
+
     }
-    section.addEventListener("click", onButtonsClick, false);
-    document.querySelector("form").addEventListener("submit", maFonction, false);
+
+
+    function deleteItem(listId){
+      console.log("in"+listId);
+      listId.forEach(function(item,index,arry){
+        document.getElementById(item).remove();
+      });
+    }
+    function mvItem(listItem,id,cible){
+      console.log(listItem+"listItem");
+      console.log(listItem+"id");
+      console.log(listItem+"cible");
+      var origine;
+      var target;
+      listItem.forEach(function(item,index,array){
+      origine = document.getElementById(item);
+      target = document.getElementById("div"+cible);
+      console.log(target);
+      target.appendChild(origine);
+      MAJItem(item,"same",cible)
+      });
+
+    }
 
 
