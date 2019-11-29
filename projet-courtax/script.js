@@ -344,8 +344,10 @@ function rechercheItemToDelete(color,div,text){
     console.log(testDiv+"div");
     console.log(testText+"text");
     if(item.couleur== testCol && item.div == testDiv && item.txt == testText){
+
       console.log("trouvé");
       listId.push(item.id);
+      tableauRoiDesTableau.splice(index,1);
 
     }
   });
@@ -363,6 +365,7 @@ function afficherItem(chaine, mot){
   var textBoutton ="";
   var BoutonColor= "";
   var cords = "";
+  var type ="";
   chaine.forEach(function(item, index, array) {
         if(item=="dans" || item == "en"){
         test = 2;
@@ -385,17 +388,24 @@ function afficherItem(chaine, mot){
         }
         }
       
-      if(item == "bouton"){
+      if(item == "bouton" || item == "champtexte"){
         test=1;
-        console.log("j'ys suis")
+        console.log("j'y suis")
         done = 1
+        type = item;
 
       }
 
+
 });
   if(done == 1 ){
+    if(type == "bouton"){
     console.log(cords +"test coordonnes");
-    maFonction(textBoutton,BoutonColor, couleur, cords)
+    maFonction(textBoutton,BoutonColor, couleur, cords);
+    }else if(type == "champtexte"){
+    console.log("in CT");
+    addTextfield(textBoutton,BoutonColor, couleur, cords);
+  }
     testCouleur="";
     textBoutton="";
     BoutonColor="";
@@ -435,25 +445,42 @@ function deleteNote(dateTime) {
       if (e.target.tagName === "BUTTON") {
       }
     }
-    function maFonction(textBoutton, BoutonColor, Couleur, cords) {
+    function maFonction(textBouton, BoutonColor, Couleur, cords) {
       var objetHtml = {};
       var btn = document.createElement("button");
       var casetable = document.getElementById("div"+cords);
-      singletonRoiDesId = singletonRoiDesId++;
+      singletonRoiDesId = singletonRoiDesId+1;
       objetHtml.id= singletonRoiDesId;
       objetHtml.couleur = Couleur;
       objetHtml.div = cords;
       objetHtml.item = "bouton";
-      objetHtml.txt= textBoutton;
+      objetHtml.txt= textBouton;
       tableauRoiDesTableau.push(objetHtml);
       btn.id = singletonRoiDesId;
       btn.style.background = BoutonColor;
       btn.classList.add("btns");
       casetable.appendChild(btn)
       btn.appendChild(document.createTextNode(textBoutton));
-      btns[i] = btn;
-      i++;
 
+    }
+
+    function addTextfield(textBouton,BoutonColor,couleur,cords){
+      var objetHtml = {};
+      var txtfiedl = document.createElement("INPUT");
+      var casetable = document.getElementById("div"+cords);
+      txtfiedl.setAttribute("type","text");
+      singletonRoiDesId = singletonRoiDesId+1;
+      txtfiedl.id = singletonRoiDesId;
+      objetHtml.id = singletonRoiDesId;
+      objetHtml.couleur = couleur;
+      objetHtml.div = cords;
+      objetHtml.item = "champ texte";
+      objetHtml.txt = textBouton;
+      tableauRoiDesTableau.push(objetHtml);
+      // TODO couleur du text
+      // TODO size
+      // TODO string devant
+      casetable.appendChild(txtfiedl);
     }
 
 
@@ -478,5 +505,11 @@ function deleteNote(dateTime) {
       });
 
     }
+
+
+
+
+
+
 
 
