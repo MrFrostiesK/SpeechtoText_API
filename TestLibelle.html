@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="TestGrille.css" />
+    <title>Test libelle</title>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="un" id="div1">1</div>
+    <div class="deux"id="div2">2</div>
+    <div class="trois" id="div3">3</div>
+    <div class="quatre" id="div4">4</div>
+    <div class="cinq" id="div5">5</div>
+
+    <button class="btns" id="bt2" onclick="afficherTexteField(2, 'zone de texte')">test texte area</button>
+
+
+</div>
+<script>
+        var btns = document.querySelectorAll(".btns");
+
+
+        function onButtonsClick(e) {
+          if (e.target.tagName === "BUTTON") {
+            alert(e.target.id);
+          }
+        }
+
+        function afficherTexteField(id, text){
+            var div = document.getElementById("div"+id);
+            var x = document.createElement("TEXTAREA");
+            var t = document.createTextNode(text);
+            div.appendChild(t);
+            div.appendChild(x);
+        }
+
+
+
+        document.querySelector("form").addEventListener("click", supprimerItem, false);
+    </script>
+</body>
+</html>
