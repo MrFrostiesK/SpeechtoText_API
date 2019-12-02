@@ -4,8 +4,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-       
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shoelace-css/1.0.0-beta16/shoelace.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="styles.css">
 
     </head>
@@ -13,45 +14,73 @@
        
 
  <div class="wrapper">
-        <div class="one" id="div1">Un</button></div>
-        <div class="two "id="div2">Deux</div>
+        <div class="one" id="div1">Un <button class="btns" id="1">1</button></div>
+        <div class="two" id="div2">Deux</div>
         <div class="three" id="div3">Trois</div>
         <div class="four" id="div4">Quatre</div>
         <div class="five" id="div5">Cinq</div>
         <div class="six" id="div6">Six</div>
 
+        <form name='newsample' onsubmit='ajoutBoutonDansGrille();'></input><input type=submit class="btn btn-primary"> </input></form>
+
 
     </div>
         <div class="container">
-
-
+		<div class="row">
+		<div class="col-sm">
             <h3 class="no-browser-support">Votre navigateur ne supporte pas l'api speech to text</h3>
 
-            <div class="app">
+            <div class="app"> 
+                <h3>Exemples de manipulation d'elements</h3>
+				- Ajouter un element</br>
+				- Suppression d'un element </br>
+				- Déplacer un element </br>
+            </div>
+			</div>
+			<div class="col-sm">
+            <h3 class="no-browser-support">Votre navigateur ne supporte pas l'api speech to text</h3>
+
+            <div class="app"> 
                 <h3>Modifier l'interface</h3>
                 <div class="input-single">
                     <textarea id="note-textarea" placeholder="Create a new note by typing or using voice recognition." rows="6"></textarea>
-                </div>        
+                </div>         
                 <button id="start-record-btn" title="Start Recording">Debut ecoute </button>
                 <button id="pause-record-btn" title="Pause Recording">Pause </button>
-                <button id="save-note-btn" title="Save Note">enregistrer</button>  
+                <button id="save-note-btn" title="Save Note">enregistrer</button>   
                 <p id="recording-instructions">Appuyer sur <strong>debut ecoute </strong> pour commencer une nouvelle requete</p>
-               
+                
                 <h3>requetes precedentes</h3>
                 <ul id="notes">
                     <li>
                         <p class="no-notes"> pas de notes </p>
                     </li>
                 </ul>
-
+			</div>
             </div>
 
+
+			<div class="col-sm">
+            <h3 class="no-browser-support">Votre navigateur ne supporte pas l'api speech to text</h3>
+
+            <div class="app"> 
+                <h3>Exemples d'elements</h3>
+				Zone de texte = <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Zone de Texte"></br>
+				Bouton = <button>Bouton</button>   </br>
+				Titre </br>
+				Liste </br>
+                
+            </div>
+			</div>
+		</div>
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="script.js"></script>
 
-        <!-- Only used for the demos ads. Please ignore and remove. -->
+        <!-- Only used for the demos ads. Please ignore and remove. --> 
 
     </body>
 </html>
+
+

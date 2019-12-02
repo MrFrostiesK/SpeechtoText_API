@@ -11,7 +11,7 @@ ListCouleur["marron"] = "#A52A2A";
 ListCouleur["blanc"] = "#FFFFFF";
 ListCouleur["gris"] = "#808080";
 ListCouleur["noir"] = "#000000";
-var singletonRoiDesId = 100; 
+var singletonRoiDesId = 100;
 var tableauRoiDesTableau = [];
 var StringAvecLesNombreDeDebile = "1 2 3 4 5 6";
 
@@ -40,19 +40,19 @@ renderNotes(notes);
 
 
 /*-----------------------------
-      Voice Recognition 
+      Voice Recognition
 ------------------------------*/
 
 // If false, the recording will stop after a few seconds of silence.
 // When true, the silence period is longer (about 15 seconds),
-// allowing us to keep recording even when the user pauses. 
+// allowing us to keep recording even when the user pauses.
 recognition.continuous = true;
 
-// This block is called every time the Speech APi captures a line. 
+// This block is called every time the Speech APi captures a line.
 recognition.onresult = function(event) {
 
   // event is a SpeechRecognitionEvent object.
-  // It holds all the lines we have captured so far. 
+  // It holds all the lines we have captured so far.
   // We only need the current one.
   var current = event.resultIndex;
 
@@ -70,7 +70,7 @@ recognition.onresult = function(event) {
   }
 };
 
-recognition.onstart = function() { 
+recognition.onstart = function() {
   instructions.text('Voice recognition activated. Try speaking into the microphone.');
 }
 
@@ -87,7 +87,7 @@ recognition.onerror = function(event) {
 
 
 /*-----------------------------
-      App buttons and input 
+      App buttons and input
 ------------------------------*/
 
 $('#start-record-btn').on('click', function(e) {
@@ -125,7 +125,7 @@ $('#save-note-btn').on('click', function(e) {
     noteTextarea.val('');
     instructions.text('Note saved successfully.');
   }
-      
+     
 })
 
 
@@ -150,7 +150,7 @@ notesList.on('click', function(e) {
 
 
 /*-----------------------------
-      Speech Synthesis 
+      Speech Synthesis
 ------------------------------*/
 
 function readOutLoud(message) {
@@ -161,14 +161,14 @@ function readOutLoud(message) {
   speech.volume = 1;
   speech.rate = 1;
   speech.pitch = 1;
-  
+ 
   window.speechSynthesis.speak(speech);
 }
 
 
 
 /*-----------------------------
-      Helper Functions 
+      Helper Functions
 ------------------------------*/
 
 function renderNotes(notes) {
@@ -193,12 +193,12 @@ function renderNotes(notes) {
 
 
 function saveNote(dateTime, content) {
-  var textBoutton = "";
+  var textBouton = "";
   localStorage.setItem('note-' + dateTime, content);
     var list = content.split(' ');
     list.forEach(function(item, index, array) {
       console.log(item)
-      if(item == "créer" || item == "afficher" || item == "affiche" || item == "ajouter" || item =="ajoute" 
+      if(item == "créer" || item == "afficher" || item == "affiche" || item == "ajouter" || item =="ajoute"
       || item =="génère" || item =="générer" ){
         afficherItem(list,item);
 
@@ -212,7 +212,7 @@ function saveNote(dateTime, content) {
 
     });
 
-  
+ 
 
 }
 function deplacerItem(chaine, mot){
@@ -237,6 +237,69 @@ function deplacerItem(chaine, mot){
           etape = etape+1;
         }
       }
+      if(item == "haut"){
+        if(origine=="1"){
+          alert("impossible");
+        }else if(origine=="2"){
+          alert("impossible");
+
+        }else if(origine =="3"){
+                    alert("impossible");
+
+        }else if(origine =="4"){
+          cible = "1";
+        }else if(origine =="5"){
+          cible = "2";
+        }else if(origine =="6"){
+          cible = "3";
+        }
+      }
+      if(item == "bas"){
+        if(origine=="1"){
+          cible="4";
+        }else if(origine=="2"){
+          cible="5";
+        }else if(origine =="3"){
+          cible="6";
+        }else if(origine =="4"){
+          alert("impossible");
+        }else if(origine =="5"){
+          alert("impossible");
+        }else if(origine =="6"){
+          alert("impossible");
+        }
+      }
+      if(item == "gauche"){
+        if(origine=="1"){
+          alert("impossible");
+        }else if(origine=="2"){
+          cible="1";
+        }else if(origine =="3"){
+          cible="2";
+        }else if(origine =="4"){
+          alert("impossible");
+        }else if(origine =="5"){
+          cible="4";
+        }else if(origine =="6"){
+          cible="5";
+        }
+      }
+      if(item == "droite"){
+        console.log("in droite");
+          if(origine=="1"){
+          cible="2";
+        }else if(origine=="2"){
+          cible="3";
+        }else if(origine =="3"){
+          alert("impossible");
+        }else if(origine =="4"){
+          cible="5";
+        }else if(origine =="5"){
+          cible="6";
+        }else if(origine =="6"){
+          alert("impossible");
+        }
+      }
 
 
     });
@@ -248,6 +311,7 @@ function rechercherItem(origine, typeItem){
   console.log(tableauRoiDesTableau);
   var listItem = [];
   tableauRoiDesTableau.forEach(function(item,index, array){
+    if(item.deleted == false){
     console.log(item.div+"div");
     console.log(typeItem+"typeitem");
     if(typeItem == "bouton" || typeItem == "champ texte"){
@@ -262,7 +326,8 @@ function rechercherItem(origine, typeItem){
         console.log(listItem);
       }
     }
-  })
+  }
+  });
   console.log(listItem+"juste avant");
   return listItem;
 }
@@ -271,24 +336,17 @@ function MAJItem(id, couleur, div){
     var tampon={}
     if(item.id == id){
       if(couleur == "same"){
-        tampon.id = id;
-        tampon.couleur = item.couleur;
-        tampon.div = div;
-        tampon.item = item.item;
-        tableauRoiDesTableau[index] = tampon;
+        tableauRoiDesTableau[index].div = div;
               }else{
-                tampon.id=id;
-                tampon.couleur = couleur;
-                tampon.div = div;
-                tampon.item = item.item;
-                tableauRoiDesTableau[item]=tampon;
+                tableauRoiDesTableau[index].couleur = couleur;
+                tableauRoiDesTableau[index].div = div;
               }
     }
   });
 }
 function supprimerItem(chaine,mot){
   var color="vide";
-  var div="vide"; 
+  var div="vide";
   var text="vide";
   var etape=0;
   var listId = [];
@@ -303,8 +361,15 @@ function supprimerItem(chaine,mot){
       div=item;
     }
     if(etape==1){
-      if(ListCouleur[item]==undefined && item!="en" && item!="dans" && !StringAvecLesNombreDeDebile.includes(item)){
+      console.log(ListCouleur[item]+"couleur");
+      console.log("item = "+item);
+      if(ListCouleur[item]==undefined && item!="en" && item!="dans"){
+        if(item !="1" || item !="2" || item != "3" || item != "4" || item != "5" || item !="6"){
+          if(text=="vide"){
+          text="";
+        }
         text = item.concat(' ', item);
+      }
       }
     }
 
@@ -321,8 +386,14 @@ function rechercheItemToDelete(color,div,text){
   var testCol;
   var testDiv;
   var testText;
+  var itemAVirer = [];
+  console.log("text de la fonction rechercheItemToDelete " + text);
   var listId = []
   console.log("in");
+  if(color == "vide" && div == "vide" && text == "vide"){
+    alert("rien trouvé a supprimer");
+    return null;
+  }
   tableauRoiDesTableau.forEach(function(item,index,array){
     if(color=="vide"){
       testCol=item.couleur;
@@ -343,28 +414,34 @@ function rechercheItemToDelete(color,div,text){
     console.log(testCol+"col");
     console.log(testDiv+"div");
     console.log(testText+"text");
-    if(item.couleur== testCol && item.div == testDiv && item.txt == testText){
+    if(item.couleur== testCol && item.div == testDiv && item.txt == testText && item.deleted == false){
 
       console.log("trouvé");
       listId.push(item.id);
-      tableauRoiDesTableau.splice(index,1);
+      itemAVirer.push(index);
+      tableauRoiDesTableau[index].deleted = true;
+      //tableauRoiDesTableau.splice(index,1);
 
     }
   });
+  itemAVirer.forEach(function(item,index,array){
+    tableauRoiDesTableau.splice(item,1);
+  });
+  console.log(itemAVirer+"itemAVirer");
   return listId;
 }
 
 
 
-function afficherItem(chaine, mot){ 
-  var textBoutton ="";
+function afficherItem(chaine, mot){
+  var textBouton ="";
   var tampon = 0;
   var test = 0;
   var done = 0;
   var couleur = "";
-  var textBoutton ="";
+  var textBouton ="";
   var BoutonColor= "";
-  var cords = "";
+  var cords = "1";
   var type ="";
   chaine.forEach(function(item, index, array) {
         if(item=="dans" || item == "en"){
@@ -383,16 +460,30 @@ function afficherItem(chaine, mot){
           BoutonColor = testCouleur;
           couleur = item;
         }else{
-          textBoutton = textBoutton.concat(' ', item);
+          textBouton = textBouton.concat(' ', item);
 
         }
         }
-      
-      if(item == "bouton" || item == "champtexte"){
+     
+      if(item == "bouton" || item == "champ" || item == "chant" || item == "titre"){
+        if(item == "champ" || item == "chant" ){
+          if(chaine[index+1] == "texte"){
+            type = "champtexte";
+          }
+          if(chaine[index+1] == "de" && chaine[index+2]=="texte"){
+            type = "champtexte";
+             }
+          console.log(chaine[index+1]+"index +1");
+          console.log(chaine[index+2]+"index + 2");
+        }
+        if(item =="bouton"){
+          type = "bouton";
+        }
+        if(item == "titre"){
+          type = "titre";
+        }
         test=1;
-        console.log("j'y suis")
         done = 1
-        type = item;
 
       }
 
@@ -401,16 +492,18 @@ function afficherItem(chaine, mot){
   if(done == 1 ){
     if(type == "bouton"){
     console.log(cords +"test coordonnes");
-    maFonction(textBoutton,BoutonColor, couleur, cords);
+    maFonction(textBouton,BoutonColor, couleur, cords);
     }else if(type == "champtexte"){
     console.log("in CT");
-    addTextfield(textBoutton,BoutonColor, couleur, cords);
+    addTextfield(textBouton,BoutonColor, couleur, cords);
+  }else if(type=="titre"){
+   addTitle(textBouton,BoutonColor,couleur,cords); 
   }
     testCouleur="";
-    textBoutton="";
+    textBouton="";
     BoutonColor="";
     couleur="";
-    cords = "";
+    cords = "1";
   }
 }
 
@@ -426,14 +519,14 @@ function getAllNotes() {
         date: key.replace('note-',''),
         content: localStorage.getItem(localStorage.key(i))
       });
-    } 
+    }
   }
   return notes;
 }
 
 
 function deleteNote(dateTime) {
-  localStorage.removeItem('note-' + dateTime); 
+  localStorage.removeItem('note-' + dateTime);
 }
 
 
@@ -455,12 +548,13 @@ function deleteNote(dateTime) {
       objetHtml.div = cords;
       objetHtml.item = "bouton";
       objetHtml.txt= textBouton;
+      objetHtml.deleted = false;
       tableauRoiDesTableau.push(objetHtml);
       btn.id = singletonRoiDesId;
       btn.style.background = BoutonColor;
       btn.classList.add("btns");
       casetable.appendChild(btn)
-      btn.appendChild(document.createTextNode(textBoutton));
+      btn.appendChild(document.createTextNode(textBouton));
 
     }
 
@@ -476,11 +570,37 @@ function deleteNote(dateTime) {
       objetHtml.div = cords;
       objetHtml.item = "champ texte";
       objetHtml.txt = textBouton;
+      objetHtml.deleted = false;
       tableauRoiDesTableau.push(objetHtml);
       // TODO couleur du text
       // TODO size
       // TODO string devant
       casetable.appendChild(txtfiedl);
+    }
+
+    function addTitle(textBouton,BoutonColor,couleur,cords){
+      var objetHtml = {};
+      var h = document.createElement("H1") 
+      var title = document.createTextNode(textBouton);
+      h.appendChild(title);
+      var casetable = document.getElementById("div"+cords);
+      //title.style.color = 'green'
+       singletonRoiDesId = singletonRoiDesId+1;
+      h.id = singletonRoiDesId;
+      objetHtml.id = singletonRoiDesId;
+      objetHtml.couleur = couleur;
+      objetHtml.div = cords;
+      objetHtml.item = "titre";
+      objetHtml.txt = textBouton;
+      objetHtml.deleted = false;
+      tableauRoiDesTableau.push(objetHtml);
+      casetable.appendChild(h);
+      var divs = document.getElementsByTagName("h1");  
+for(var i = 0; i < divs.length; i++) {   
+  var div = divs[i];                     
+  div.style.color = BoutonColor;            
+}
+
     }
 
 
@@ -505,11 +625,3 @@ function deleteNote(dateTime) {
       });
 
     }
-
-
-
-
-
-
-
-
